@@ -7,24 +7,21 @@ const rl = readline.createInterface({
 let n, m;
 let answer = "";
 const str = [];
-const visited = new Array(n);
-visited.fill(0);
 
 const backTrack = (num) => {
   if (num === m) {
     answer += `${str.join(" ")}\n`;
-  }
+  } else {
+    const before = str[str.length - 1] ?? 1;
 
-  for (let i = 0; i < n; i++) {
-    const min = str[str.length - 1] ?? 0;
+    for (let i = 1; i <= n; i++) {
+      if (before <= i) {
+        str.push(i);
 
-    if ((visited[i] === 0 || !visited[i]) && min < i + 1) {
-      str.push(i + 1);
-      visited[i] = 1;
+        backTrack(num + 1);
 
-      backTrack(num + 1);
-      visited[i] = 0;
-      str.pop();
+        str.pop();
+      }
     }
   }
 };
@@ -33,7 +30,8 @@ rl.on("line", (line) => {
   [n, m] = line.split(" ").map((el) => parseInt(el));
 }).on("close", function () {
   backTrack(0);
-  console.log(answer.trimEnd());
+
+  console.log(answer.trim());
 
   process.exit();
 });
