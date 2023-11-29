@@ -1,10 +1,6 @@
-// test for local
-const fs = require("fs"); //  WHEN SUBMIT
-const path = "./input.txt"; // DELETE WHEN SUBMIT
-
 const readline = require("readline");
 const rl = readline.createInterface({
-  input: fs.createReadStream(path), // CHANGE TO process.stdin
+  input: process.stdin,
   output: process.stdout,
 });
 
